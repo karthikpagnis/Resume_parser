@@ -1,0 +1,39 @@
+# Development and Testing Dependencies
+-r requirements.txt
+
+# Testing
+pytest==7.3.2
+pytest-cov==4.1.0
+pytest-xdist==3.2.1
+coverage==7.2.0
+
+# Code Quality
+black==23.3.0
+flake8==6.0.0
+pylint==2.17.4
+isort==5.12.0
+
+# Type Checking
+mypy==1.2.0
+types-requests==2.31.0
+
+# Documentation
+sphinx==6.3.0
+sphinx-rtd-theme==1.2.1
+
+# API Development
+flask==2.3.2
+flask-cors==4.0.0
+gunicorn==20.1.0
+
+# Performance Analysis
+memory-profiler==0.61.0
+line-profiler==4.0.3
+
+# Utilities
+python-dotenv==1.0.0
+tqdm==4.65.0
+
+# Development tools
+ipython==8.12.2
+jupyter==1.0.0
