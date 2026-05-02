@@ -1,5 +1,13 @@
 """Resume Parser with Transformer Model Integration"""
 
+# Disable AVX/MKL instructions for CPU compatibility
+import os
+os.environ['OPENBLAS_CORETYPE'] = 'NEHALEM'
+os.environ['OMP_NUM_THREADS'] = '1'
+os.environ['MKL_THREADING_LAYER'] = 'GNU'
+os.environ['TORCH_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+
 import json
 import re
 from typing import Dict, List, Tuple
@@ -8,6 +16,10 @@ from pathlib import Path
 from transformers import pipeline, AutoTokenizer, AutoModelForTokenClassification
 import torch
 import numpy as np
+
+# Force CPU-only mode to avoid AVX issues
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
 
 from config import (
     MODEL_NAME, NER_MODEL, SUPPORTED_FORMATS, OUTPUT_SCHEMA,
@@ -24,7 +36,8 @@ class ResumeParser:
     
     def __init__(self):
         """Initialize parser with transformer models"""
-        self.device = 0 if torch.cuda.is_available() else -1
+        # Force CPU device to avoid AVX issues
+        self.device = -1  # -1 = CPU only
         
         # Initialize NER pipeline
         self.ner_pipeline = pipeline(

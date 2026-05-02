@@ -3,6 +3,14 @@ Main entry point for Resume Parser application
 Provides both CLI and programmatic interfaces
 """
 
+# Disable AVX/MKL instructions for CPU compatibility
+import os
+os.environ['OPENBLAS_CORETYPE'] = 'NEHALEM'
+os.environ['OMP_NUM_THREADS'] = '1'
+os.environ['MKL_THREADING_LAYER'] = 'GNU'
+os.environ['TORCH_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+
 import json
 import sys
 import argparse
